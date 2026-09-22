@@ -1,0 +1,1567 @@
+{
+"v": 1,
+"projects": [
+{
+"id": "p1",
+"key": "VMX",
+"name": "VMax 2.0 balance ring",
+"nextNum": 51
+}
+],
+"workstreams": [
+{
+"id": "wA",
+"projectId": "p1",
+"name": "Escapes and containment",
+"color": "#2A5A97",
+"ord": 1
+},
+{
+"id": "wB",
+"projectId": "p1",
+"name": "Weld process",
+"color": "#7A4FA8",
+"ord": 2
+},
+{
+"id": "wC",
+"projectId": "p1",
+"name": "Plug quality",
+"color": "#B5780A",
+"ord": 3
+},
+{
+"id": "wD",
+"projectId": "p1",
+"name": "Flex line",
+"color": "#1F7F86",
+"ord": 4
+},
+{
+"id": "wE",
+"projectId": "p1",
+"name": "Equipment reliability",
+"color": "#2B7A4B",
+"ord": 5
+},
+{
+"id": "wF",
+"projectId": "p1",
+"name": "Grinder and drainage",
+"color": "#56636E",
+"ord": 6
+},
+{
+"id": "wG",
+"projectId": "p1",
+"name": "People and support",
+"color": "#9A2B20",
+"ord": 7
+}
+],
+"people": [
+{
+"id": "u0",
+"name": "Greg",
+"kind": "person",
+"email": ""
+},
+{
+"id": "u1",
+"name": "Ciara Barber",
+"kind": "person",
+"email": ""
+},
+{
+"id": "u2",
+"name": "Darl",
+"kind": "company",
+"email": ""
+},
+{
+"id": "u3",
+"name": "Dave Fawer",
+"kind": "person",
+"email": ""
+},
+{
+"id": "u4",
+"name": "Josh Lindsey",
+"kind": "person",
+"email": ""
+},
+{
+"id": "u5",
+"name": "Leo Hernandez",
+"kind": "person",
+"email": ""
+},
+{
+"id": "u6",
+"name": "Marco",
+"kind": "person",
+"email": ""
+},
+{
+"id": "u7",
+"name": "ONC",
+"kind": "company",
+"email": ""
+},
+{
+"id": "u8",
+"name": "Rick Uher",
+"kind": "person",
+"email": ""
+}
+],
+"actions": [
+{
+"id": "a1",
+"projectId": "p1",
+"num": 1,
+"title": "Fix the Flex line bug where holding Start passes a part without failing it. The workaround is known on the floor.",
+"stage": "Idea",
+"workstreamId": "wA",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Ciara email"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a2",
+"projectId": "p1",
+"num": 2,
+"title": "Red X parts and program to verify the leak tester (red rabbit), plus work instructions and a visual aid.",
+"stage": "Do next",
+"workstreamId": "wA",
+"ownerId": "u5",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "do",
+"notes": "Ciara: parts and program. Leo: work instructions and visual aid.",
+"src": [
+"Operators 2nd shift",
+"Cause map",
+"Leo list 4",
+"Leo list 5"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a3",
+"projectId": "p1",
+"num": 3,
+"title": "Leak tester seals: replace damaged seals, kanban for spares, evaluate a different or custom-machined seal design.",
+"stage": "Idea",
+"workstreamId": "wA",
+"ownerId": "u1",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 2nd shift",
+"Cause map",
+"Ciara email",
+"Leo list 3"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a4",
+"projectId": "p1",
+"num": 4,
+"title": "Leak tester contamination: eliminate swarf and dirt.",
+"stage": "Idea",
+"workstreamId": "wA",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 2nd shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a5",
+"projectId": "p1",
+"num": 5,
+"title": "Recalibrate the leak tester so all chambers give the same pass/fail result.",
+"stage": "Idea",
+"workstreamId": "wA",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 2nd shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a6",
+"projectId": "p1",
+"num": 6,
+"title": "Witness mark reliability: resolve the Mecco PLC disconnects (support ticket open) and enable laser edge.",
+"stage": "Idea",
+"workstreamId": "wA",
+"ownerId": "u1",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "Confirm what the Mecco does and whether laser edge replaces it or works around it.",
+"src": [
+"Ciara email",
+"Leo list 2"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a7",
+"projectId": "p1",
+"num": 7,
+"title": "Reject path: keep the cage locked and emptied, and verify rejects with more than a single photo eye.",
+"stage": "Idea",
+"workstreamId": "wA",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Cause map",
+"Ciara email"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a8",
+"projectId": "p1",
+"num": 8,
+"title": "Bad-part segregation: red KD containers for scrap, labeled floor locations, no failed parts reaching FG.",
+"stage": "Idea",
+"workstreamId": "wA",
+"ownerId": "u4",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "Josh: red KD.",
+"src": [
+"Operators 2nd shift",
+"Cause map",
+"Leo list 6"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a9",
+"projectId": "p1",
+"num": 9,
+"title": "Scrap removal support and tugger response, so parts don't pile up and mix.",
+"stage": "Idea",
+"workstreamId": "wA",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 2nd shift",
+"Operators 3rd shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a10",
+"projectId": "p1",
+"num": 10,
+"title": "Scrap tracking: fix it and find out why the current process failed.",
+"stage": "Idea",
+"workstreamId": "wA",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 1st shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a11",
+"projectId": "p1",
+"num": 11,
+"title": "Conveyor: add the missing side guardrail so parts don't fall off.",
+"stage": "Idea",
+"workstreamId": "wA",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 2nd shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a12",
+"projectId": "p1",
+"num": 12,
+"title": "Replace the welder cylinders (2 horizontal, 2 vertical). Parts on hand; about 4 hours of downtime.",
+"stage": "Idea",
+"workstreamId": "wB",
+"ownerId": "u1",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Ciara email",
+"Leo list 1",
+"Cause map"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a13",
+"projectId": "p1",
+"num": 13,
+"title": "Weld horn: verify whether it gets knocked out of alignment, fix the end-of-travel jog, order spare horns early.",
+"stage": "Idea",
+"workstreamId": "wB",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Cause map",
+"Ciara email"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a14",
+"projectId": "p1",
+"num": 14,
+"title": "Install the tamper-proof flow controls on the weld station (parts on hand).",
+"stage": "Idea",
+"workstreamId": "wB",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Ciara email"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a15",
+"projectId": "p1",
+"num": 15,
+"title": "Hot and cold rings: balance press speeds, set weld settings for hot vs cold rings, stop upstream production when the carousel is down.",
+"stage": "Idea",
+"workstreamId": "wB",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 2nd shift",
+"Cause map"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a16",
+"projectId": "p1",
+"num": 16,
+"title": "Correct robot handling that bows the upper and lower components.",
+"stage": "Idea",
+"workstreamId": "wB",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 1st shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a17",
+"projectId": "p1",
+"num": 17,
+"title": "Regular cleaning schedule for the spin welder.",
+"stage": "Idea",
+"workstreamId": "wB",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 2nd shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a18",
+"projectId": "p1",
+"num": 18,
+"title": "Correct misplaced plug welds that cause Flex line rework.",
+"stage": "Idea",
+"workstreamId": "wB",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 3rd shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a19",
+"projectId": "p1",
+"num": 19,
+"title": "Dimensional control: diameter, height and runout.",
+"stage": "Idea",
+"workstreamId": "wB",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 3rd shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a20",
+"projectId": "p1",
+"num": 20,
+"title": "Find out why the carousel produces so many rejects.",
+"stage": "Idea",
+"workstreamId": "wB",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 1st shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a21",
+"projectId": "p1",
+"num": 21,
+"title": "Welder reliability: root cause of the frequent refurbs, and permanent fixes instead of band-aids.",
+"stage": "Idea",
+"workstreamId": "wB",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 1st shift",
+"Operators 3rd shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a22",
+"projectId": "p1",
+"num": 22,
+"title": "Root cause of plug flash, short shots and misshapes (the cause map marks this WHY???).",
+"stage": "Idea",
+"workstreamId": "wC",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 2nd shift",
+"Operators 3rd shift",
+"Cause map"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a23",
+"projectId": "p1",
+"num": 23,
+"title": "Sort plugs at plug production.",
+"stage": "Idea",
+"workstreamId": "wC",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 2nd shift",
+"Operators 3rd shift",
+"Cause map"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a24",
+"projectId": "p1",
+"num": 24,
+"title": "Weigh station: install the new board (on order). Spare load cells are on hand.",
+"stage": "Idea",
+"workstreamId": "wD",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Ciara email"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a25",
+"projectId": "p1",
+"num": 25,
+"title": "Press and robot reliability.",
+"stage": "Idea",
+"workstreamId": "wE",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 1st shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a26",
+"projectId": "p1",
+"num": 26,
+"title": "Material system reliability.",
+"stage": "Idea",
+"workstreamId": "wE",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 1st shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a27",
+"projectId": "p1",
+"num": 27,
+"title": "Repair oil leaks between the upper and lower presses.",
+"stage": "Idea",
+"workstreamId": "wE",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 3rd shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a28",
+"projectId": "p1",
+"num": 28,
+"title": "Repair water leaks: pumps and pipe condensation.",
+"stage": "Idea",
+"workstreamId": "wE",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 3rd shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a29",
+"projectId": "p1",
+"num": 29,
+"title": "Install the JV grinder, and speed up moving parts to the grinder.",
+"stage": "Plan",
+"workstreamId": "wF",
+"ownerId": "u3",
+"due": "2026-09-22",
+"impact": "",
+"effort": "",
+"priority": "plan",
+"notes": "",
+"src": [
+"Operators 3rd shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a30",
+"projectId": "p1",
+"num": 30,
+"title": "Reduce part drainage time using the JV model, including building the JV puncher.",
+"stage": "Idea",
+"workstreamId": "wF",
+"ownerId": "u4",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "Josh: JV puncher. Confirm the puncher is for drainage.",
+"src": [
+"Operators 3rd shift",
+"Leo list 7"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a31",
+"projectId": "p1",
+"num": 31,
+"title": "Troubleshooting guide for the welder and carousels.",
+"stage": "Idea",
+"workstreamId": "wG",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 2nd shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a32",
+"projectId": "p1",
+"num": 32,
+"title": "Train leads to single out, start and shut down presses.",
+"stage": "Idea",
+"workstreamId": "wG",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 3rd shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a33",
+"projectId": "p1",
+"num": 33,
+"title": "Technician response time.",
+"stage": "Idea",
+"workstreamId": "wG",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 2nd shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a34",
+"projectId": "p1",
+"num": 34,
+"title": "Technical coverage: 3rd shift ME support and maintenance staffing.",
+"stage": "Idea",
+"workstreamId": "wG",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 3rd shift",
+"Ciara email"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a35",
+"projectId": "p1",
+"num": 35,
+"title": "Consistent staffing and consistent training.",
+"stage": "Idea",
+"workstreamId": "wG",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 1st shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a36",
+"projectId": "p1",
+"num": 36,
+"title": "Visible 5S area and standard.",
+"stage": "Idea",
+"workstreamId": "wG",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Operators 1st shift"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a37",
+"projectId": "p1",
+"num": 37,
+"title": "New carousel nesting to stop part movement.",
+"stage": "Done",
+"workstreamId": "wB",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "Ciara: has helped.",
+"src": [
+"Ciara email"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a38",
+"projectId": "p1",
+"num": 38,
+"title": "Change out the cylinders",
+"stage": "Plan",
+"workstreamId": "",
+"ownerId": "u1",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "plan",
+"notes": "We already have the parts.  Need 4 hours of downtime.  Need to get 4 hours",
+"src": [
+"Shutdown"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a39",
+"projectId": "p1",
+"num": 39,
+"title": "spin welder sensor for alignment",
+"stage": "Plan",
+"workstreamId": "",
+"ownerId": "u1",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "plan",
+"notes": "Someone on ME team working with Ciara",
+"src": [
+"Shutdown"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a40",
+"projectId": "p1",
+"num": 40,
+"title": "get the existing laser working",
+"stage": "Doing",
+"workstreamId": "",
+"ownerId": "",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "do",
+"notes": "Leo to manage with progress",
+"src": [
+"Mecco"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a41",
+"projectId": "p1",
+"num": 41,
+"title": "Link the presses to stop WIP buildup",
+"stage": "Parked",
+"workstreamId": "",
+"ownerId": "u6",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "fill",
+"notes": "",
+"src": [
+"Brainstorm 22 Sep"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a42",
+"projectId": "p1",
+"num": 42,
+"title": "Red X programming for Carousel",
+"stage": "Do next",
+"workstreamId": "",
+"ownerId": "u8",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "do",
+"notes": "",
+"src": [
+"Brainstorm 22 Sep"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a43",
+"projectId": "p1",
+"num": 43,
+"title": "Red X program for Flex Line",
+"stage": "Do next",
+"workstreamId": "",
+"ownerId": "u8",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "do",
+"notes": "",
+"src": [
+"Brainstorm 22 Sep"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a44",
+"projectId": "p1",
+"num": 44,
+"title": "Red X procedure",
+"stage": "Do next",
+"workstreamId": "",
+"ownerId": "u5",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "do",
+"notes": "",
+"src": [
+"Brainstorm 22 Sep"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a45",
+"projectId": "p1",
+"num": 45,
+"title": "Visual Factory Monitor",
+"stage": "Do next",
+"workstreamId": "",
+"ownerId": "u8",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "do",
+"notes": "",
+"src": [
+"Brainstorm 22 Sep"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a46",
+"projectId": "p1",
+"num": 46,
+"title": "Engineer the upper / lower process",
+"stage": "Do next",
+"workstreamId": "",
+"ownerId": "u6",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "do",
+"notes": "They are stacking parts (@164 and 405) to cool them",
+"src": [
+"Brainstorm 22 Sep"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a47",
+"projectId": "p1",
+"num": 47,
+"title": "Repair the oil leaks",
+"stage": "Idea",
+"workstreamId": "",
+"ownerId": "u7",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "Greg - get with Dave to schedule",
+"src": [
+"shutdown"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a48",
+"projectId": "p1",
+"num": 48,
+"title": "8 seals",
+"stage": "Idea",
+"workstreamId": "",
+"ownerId": "u2",
+"due": "2026-09-25",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Brainstorm 22 Sep"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a49",
+"projectId": "p1",
+"num": 49,
+"title": "50 seals on order",
+"stage": "Idea",
+"workstreamId": "",
+"ownerId": "u1",
+"due": "2026-09-25",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Brainstorm 22 Sep"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+},
+{
+"id": "a50",
+"projectId": "p1",
+"num": 50,
+"title": "Min / Max for seals",
+"stage": "Idea",
+"workstreamId": "",
+"ownerId": "u5",
+"due": "",
+"impact": "",
+"effort": "",
+"priority": "",
+"notes": "",
+"src": [
+"Brainstorm 22 Sep"
+],
+"created": "2026-09-22T15:02:00",
+"updated": "2026-09-22T15:02:00"
+}
+],
+"updates": [
+{
+"id": "up1a",
+"actionId": "a1",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up2a",
+"actionId": "a2",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up3a",
+"actionId": "a3",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up4a",
+"actionId": "a4",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up5a",
+"actionId": "a5",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up6a",
+"actionId": "a6",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up7a",
+"actionId": "a7",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up8a",
+"actionId": "a8",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up9a",
+"actionId": "a9",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up10a",
+"actionId": "a10",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up11a",
+"actionId": "a11",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up12a",
+"actionId": "a12",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up13a",
+"actionId": "a13",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up14a",
+"actionId": "a14",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up15a",
+"actionId": "a15",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up16a",
+"actionId": "a16",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up17a",
+"actionId": "a17",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up18a",
+"actionId": "a18",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up19a",
+"actionId": "a19",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up20a",
+"actionId": "a20",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up21a",
+"actionId": "a21",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up22a",
+"actionId": "a22",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up23a",
+"actionId": "a23",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up24a",
+"actionId": "a24",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up25a",
+"actionId": "a25",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up26a",
+"actionId": "a26",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up27a",
+"actionId": "a27",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up28a",
+"actionId": "a28",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up29a",
+"actionId": "a29",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up30a",
+"actionId": "a30",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up31a",
+"actionId": "a31",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up32a",
+"actionId": "a32",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up33a",
+"actionId": "a33",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up34a",
+"actionId": "a34",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up35a",
+"actionId": "a35",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up36a",
+"actionId": "a36",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up37a",
+"actionId": "a37",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up38a",
+"actionId": "a38",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up38b",
+"actionId": "a38",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Possible duplicate of VMX-12. Merge or keep both."
+},
+{
+"id": "up39a",
+"actionId": "a39",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up40a",
+"actionId": "a40",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up40b",
+"actionId": "a40",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported: the owner box read \"progress\". Set to Doing with no owner; confirm."
+},
+{
+"id": "up41a",
+"actionId": "a41",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up42a",
+"actionId": "a42",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up42b",
+"actionId": "a42",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Possible duplicate of VMX-2. Merge or keep both."
+},
+{
+"id": "up43a",
+"actionId": "a43",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up43b",
+"actionId": "a43",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Possible duplicate of VMX-2. Merge or keep both."
+},
+{
+"id": "up44a",
+"actionId": "a44",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up44b",
+"actionId": "a44",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Possible duplicate of VMX-2. Merge or keep both."
+},
+{
+"id": "up45a",
+"actionId": "a45",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up46a",
+"actionId": "a46",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up47a",
+"actionId": "a47",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up47b",
+"actionId": "a47",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Possible duplicate of VMX-27. Merge or keep both."
+},
+{
+"id": "up48a",
+"actionId": "a48",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up48b",
+"actionId": "a48",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Possible duplicate of VMX-3. Merge or keep both."
+},
+{
+"id": "up49a",
+"actionId": "a49",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up49b",
+"actionId": "a49",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Possible duplicate of VMX-3. Merge or keep both."
+},
+{
+"id": "up50a",
+"actionId": "a50",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Imported from the 22 Sep brainstorm."
+},
+{
+"id": "up50b",
+"actionId": "a50",
+"at": "2026-09-22T15:02:00",
+"who": "u0",
+"kind": "import",
+"text": "Possible duplicate of VMX-3. Merge or keep both."
+}
+],
+"bundles": []
+}

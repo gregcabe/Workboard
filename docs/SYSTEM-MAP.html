@@ -1,0 +1,32 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Workboard system map</title>
+<style>body{font:15px/1.45 system-ui,sans-serif;margin:24px;max-width:1100px;color:#1B2630}h1{margin:0 0 4px}.sub{color:#56636E;margin-bottom:18px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin:18px 0}.card{border:1px solid #D8DEE3;border-radius:8px;padding:10px 12px}.card b{display:block;margin-bottom:4px}
+table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid #D8DEE3;text-align:left;padding:6px 8px;vertical-align:top}th{background:#F3F5F7}</style></head><body>
+<h1>Workboard system map</h1><div class="sub">Generated 22 Sep 2026. Solid arrows carry data, amber arrows carry a credential, dashed steps are done by hand.</div>
+<svg viewBox="0 0 1000 420" width="100%" style="max-width:1000px;font:13px system-ui,sans-serif">
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1B2630"/></marker><marker id="b" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#B5780A"/></marker></defs>
+<g fill="#fff" stroke="#1B2630" stroke-width="1.5"><rect x="30" y="40" width="170" height="70" rx="8"/><rect x="30" y="170" width="170" height="70" rx="8"/><rect x="30" y="300" width="170" height="70" rx="8"/><rect x="400" y="170" width="200" height="90" rx="8"/><rect x="760" y="170" width="200" height="90" rx="8"/><rect x="400" y="40" width="200" height="70" rx="8"/></g>
+<g font-weight="700"><text x="115" y="70" text-anchor="middle">Browser (page)</text><text x="115" y="200" text-anchor="middle">Claude chat</text><text x="115" y="330" text-anchor="middle">Greg's PC</text><text x="500" y="200" text-anchor="middle">Worker: workboard</text><text x="860" y="200" text-anchor="middle">Turso DB</text><text x="500" y="70" text-anchor="middle">Worker: workboard-mcp</text></g>
+<g fill="#56636E"><text x="115" y="92" text-anchor="middle">site/ (served by Worker)</text><text x="115" y="222" text-anchor="middle">via connector</text><text x="115" y="352" text-anchor="middle">seed.py, backup.py, tests</text><text x="500" y="222" text-anchor="middle">/api/state, /api/save</text><text x="500" y="242" text-anchor="middle">holds TURSO_TOKEN, APP_KEY</text><text x="860" y="222" text-anchor="middle">workboard, schema v1</text><text x="860" y="242" text-anchor="middle">SQLite, us-east-2</text><text x="500" y="92" text-anchor="middle">7 tools, holds MCP_KEY, APP_KEY</text></g>
+<g stroke="#B5780A" stroke-width="2" fill="none" marker-end="url(#b)"><path d="M200,75 C300,75 320,205 400,205"/><path d="M200,205 C280,205 300,75 400,75"/><path d="M200,335 C300,335 320,225 400,225"/><path d="M600,75 C650,75 650,190 760,200"/></g>
+<g stroke="#1B2630" stroke-width="2" fill="none" marker-end="url(#a)"><path d="M600,215 L760,215"/></g>
+<g fill="#B5780A" font-size="12"><text x="270" y="130">X-Key: APP_KEY</text><text x="270" y="200">Bearer MCP_KEY</text><text x="270" y="290">X-Key: APP_KEY</text><text x="640" y="130">X-Key: APP_KEY</text></g>
+<g fill="#1B2630" font-size="12"><text x="640" y="205">Bearer TURSO_TOKEN</text></g>
+<g stroke="#56636E" stroke-dasharray="5,4" fill="none"><path d="M115,300 L115,250"/><path d="M200,320 C500,320 640,320 760,260"/></g>
+<g fill="#56636E" font-size="12"><text x="125" y="280">by hand: paste Workers, set secrets</text><text x="560" y="335">by hand: paste 001_init.sql into the Turso shell</text></g>
+</svg>
+<div class="cards">
+<div class="card"><b>Page</b>One HTML file inlined into the Worker. Diffs its rows and posts changes; refreshes every 30 s. Keeps only the app key and per-viewer settings in localStorage.</div>
+<div class="card"><b>Worker: workboard</b>Serves the page; two API calls; version check on every write; CSP and security headers. The only holder of the Turso token.</div>
+<div class="card"><b>Worker: workboard-mcp</b>MCP server any Claude chat can call. Talks to the app API, never to Turso. No delete, no raw SQL.</div>
+<div class="card"><b>Turso</b>System of record. Backups are files in backups\, never in the repo.</div>
+<div class="card"><b>GitHub: gregcabe/workboard (private)</b>Architecture only: code, migrations, scripts, tests, docs. Never data.</div>
+<div class="card"><b>Tests</b>Run the real Worker on node:sqlite behind the Turso pipeline contract, so what is tested is what ships.</div>
+</div>
+<h2>Credentials</h2>
+<table><tr><th>Credential</th><th>What it can do</th><th>Lives in</th><th>Travels</th></tr>
+<tr><td>APP_KEY</td><td>Read and write the whole board through the API</td><td>Worker secret; each user's browser localStorage; %ONEDRIVE%\_Claude\workboard-key.txt; connector secret</td><td>Browser and scripts to Worker, connector to Worker (X-Key header, HTTPS)</td></tr>
+<tr><td>TURSO_TOKEN</td><td>Full SQL on the database</td><td>Worker secret only; %ONEDRIVE%\_Claude\workboard-turso-token.txt for the Turso shell and future migrations</td><td>Worker to Turso only</td></tr>
+<tr><td>MCP_KEY</td><td>Call the 7 connector tools as the board</td><td>Connector secret; Claude connector settings</td><td>Claude to connector (bearer, HTTPS)</td></tr></table>
+<p>Note for the security sweep: the app key is shared by every user until Cloudflare Access lands (feature queue item 1). The OneDrive files sync to the employer's cloud, same as WCC.</p>
+</body></html>

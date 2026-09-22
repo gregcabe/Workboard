@@ -1,0 +1,4 @@
+backups/
+tests/shots/
+__pycache__/
+*.txt.local
