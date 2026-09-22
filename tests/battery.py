@@ -142,6 +142,15 @@ with sync_playwright() as p:
     pg.locator('.tabs button[data-v="board"]').click(); pg.wait_for_timeout(450); pg.locator(".colb").nth(3).locator(".card").first.click()
     pg.locator(".drawer .blkh input").uncheck(); ok("unblocked", "Blocked:" not in pg.locator(".colb").nth(3).inner_text())
     pg.keyboard.press("Escape")
+    # help panel and retract
+    pg.locator('.tabs button[data-v="board"]').click(); pg.wait_for_timeout(450)
+    pg.locator(".btn.help").click(); ok("help opens", "How to use Workboard" in pg.locator(".drawer").inner_text()); pg.keyboard.press("Escape")
+    pg.locator(".colb").nth(3).locator(".card").first.click(); pg.wait_for_timeout(80)
+    pg.locator(".drawer .post input").fill("Oops wrong card"); pg.locator(".drawer .post button").click(); pg.wait_for_timeout(100)
+    rx=pg.locator(".drawer .log .rx").first; rx.click(); rx.click(); pg.wait_for_timeout(100)
+    lg=pg.locator(".drawer .log").inner_text()
+    ok("retracted shown, text hidden", "Post retracted by" in lg and "Oops wrong card" not in lg)
+    pg.keyboard.press("Escape")
     # mobile
     pg.set_viewport_size({"width":390,"height":800}); pg.locator('.tabs button[data-v="mine"]').click()
     ok("mobile no overflow", pg.evaluate("document.documentElement.scrollWidth")<=390)
@@ -164,6 +173,7 @@ with sync_playwright() as p:
     try: urllib.request.urlopen(bad); code=200
     except urllib.error.HTTPError as e: code=e.code
     ok("wrong key 401", code==401)
+    ok("retract row in store", any(u["kind"]=="retract" for u in st["updates"]))
     ok("no errors", not errs); print(errs)
     b.close()
 print("%d of %d checks passed"%(sum(1 for r in res if r[1]),len(res)))

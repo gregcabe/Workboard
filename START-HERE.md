@@ -13,6 +13,8 @@ Every command is a double-click. Nothing here needs admin rights.
 | `Test.cmd` | Runs the test battery (page through its real controls + the connector). Run before every push |
 | `Seed-Live.cmd` | Seeds the live board from `scripts/seed/brainstorm-2026-09-22.json` through its API. Rerunnable; leaves existing rows alone |
 | `Backup.cmd` | Pulls the whole live board to `backups\workboard-YYYYMMDD-HHMM.json` |
+| `Restore.cmd` | Puts the live board back to the newest backup (or a file dragged onto it). Asks for YES first |
+| `Push-Workboard.cmd` | Commits this folder to GitHub with `COMMIT.txt` as the message |
 
 ## First-time setup (about 20 minutes)
 
@@ -24,7 +26,7 @@ Every command is a double-click. Nothing here needs admin rights.
 4. Open https://workboard.gregcabe.workers.dev, enter the app key when asked. Empty board is right at this point.
 5. `Seed-Live.cmd`. Refresh the page: the 50 VMax items are there.
 6. **Connector `workboard-mcp`** (optional now, recommended): second Worker, paste `connector/worker.js`, secrets `MCP_KEY` (a new random string),
-   `APP_URL` = https://workboard.gregcabe.workers.dev, `APP_KEY` (same as step 2). Deploy.
+   `APP_URL` = https://workboard.gregcabe.workers.dev, `APP_KEY` (same as step 2), plus Settings, Bindings, Service binding: variable `APP`, service `workboard`. Deploy.
    In Claude, Settings, Connectors, add custom connector: URL https://workboard-mcp.gregcabe.workers.dev/mcp, bearer token = `MCP_KEY`.
 7. **GitHub**: private repo `workboard`. Copy this folder into the push staging folder and run the push bat, same as WCC.
 

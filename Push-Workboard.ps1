@@ -22,13 +22,13 @@
 
 $ErrorActionPreference = 'Stop'
 
-$Repo    = 'https://github.com/gregcabe/workboard.git'
+$Repo    = 'https://github.com/gregcabe/Workboard.git'
 $Branch  = 'main'
 $Clone   = Join-Path $env:USERPROFILE 'workboard-repo'
 $Stage   = Join-Path $env:USERPROFILE 'OneDrive - Revere Plastics Systems LLC\_Claude\Tools\Workboard'
 $ClaudeDir = Join-Path $env:USERPROFILE 'OneDrive - Revere Plastics Systems LLC\_Claude'
 $Folders = @('connector','docs','migrations','scripts','site','tests','worker')
-$RootFiles = @('START-HERE.md','HANDOFF.md','config.json','.gitignore','Build.cmd','Serve-Local.cmd','Test.cmd','Seed-Live.cmd','Backup.cmd','Push-Workboard.cmd','Push-Workboard.ps1')
+$RootFiles = @('START-HERE.md','HANDOFF.md','config.json','.gitignore','Build.cmd','Serve-Local.cmd','Test.cmd','Seed-Live.cmd','Backup.cmd','Push-Workboard.cmd','Push-Workboard.ps1','Restore.cmd')
 
 function Say([string]$m, [string]$c='Gray'){ Write-Host $m -ForegroundColor $c }
 function Die([string]$m){ Say ''; Say "STOPPED: $m" 'Red'; Say ''; exit 1 }

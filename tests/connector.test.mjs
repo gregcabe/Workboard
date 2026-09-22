@@ -18,6 +18,8 @@ let n = 0, id = 0; const fails = [];
 async function call(name, args) { const r = await mcp.fetch(new Request("http://mcp.local/mcp", { method: "POST", headers: { Authorization: "Bearer m" }, body: JSON.stringify({ jsonrpc: "2.0", id: ++id, method: "tools/call", params: { name, arguments: args } }) }), env); const j = await r.json(); const t = j.result.content[0].text; return j.result.isError ? { error: t } : JSON.parse(t); }
 function ok(name, c) { n++; if (!c) fails.push(name); console.log((c ? "PASS " : "FAIL ") + name); }
 ok("unauthorized 401", (await mcp.fetch(new Request("http://mcp.local/mcp", { method: "POST", headers: { Authorization: "Bearer x" }, body: "{}" }), env)).status === 401);
+ok("wrong path key 401", (await mcp.fetch(new Request("http://mcp.local/mcp/nope", { method: "POST", body: "{}" }), env)).status === 401);
+ok("path key works", (await (await mcp.fetch(new Request("http://mcp.local/mcp/m", { method: "POST", body: JSON.stringify({ jsonrpc: "2.0", id: 9, method: "tools/list" }) }), env)).json()).result.tools.length === 7);
 const lst = await (await mcp.fetch(new Request("http://mcp.local/mcp", { method: "POST", headers: { Authorization: "Bearer m" }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "tools/list" }) }), env)).json();
 ok("7 tools, no delete", lst.result.tools.length === 7 && !lst.result.tools.some(t => /delete/i.test(t.name)));
 const add = await call("wb_add_action", { project: "VMX", title: "Order seals", owner: "ciara", workstream: "leak", who: "Ciara Barber" });

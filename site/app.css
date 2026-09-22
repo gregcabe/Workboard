@@ -218,3 +218,8 @@ body.isdragging{cursor:grabbing}
 .keybox h2{margin:0}.keybox p{margin:0;color:var(--muted);font-size:.9rem}
 .keybox input{border:1px solid var(--line);border-radius:6px;padding:9px 10px;background:var(--panel)}
 .savestate{font-size:.85rem;color:var(--barmuted)}.savestate.busy{color:#F2C94C}.savestate.bad{color:#F08A7E;font-weight:600}
+.db>*{flex-shrink:0}
+.btn.help{width:2.2rem;padding:7px 0;border-radius:50%;font-weight:700}
+.rx{border:0;background:none;color:var(--muted);font-size:.75rem;cursor:pointer;margin-left:8px;text-decoration:underline}
+.rx:hover{color:var(--late)}
+.db.help h3{margin:6px 0 0;font-size:.95rem}.db.help p{margin:0;color:var(--ink);line-height:1.45}

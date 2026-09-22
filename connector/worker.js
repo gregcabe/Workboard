@@ -1,5 +1,5 @@
 // Workboard MCP connector: lets any Claude chat read and write the board, through the Workboard API.
-// Paste into a second Cloudflare Worker (workboard-mcp). Secrets: MCP_KEY (in the connector URL), APP_URL, APP_KEY.
+// Paste into a second Cloudflare Worker (workboard-mcp). Secrets: MCP_KEY (in the connector URL), APP_URL, APP_KEY. Binding: service binding APP -> worker "workboard".
 // No delete tool and no raw SQL, by design (same rule as WCC).
 const TOOLS = [
   { name: "wb_list_projects", description: "List projects with their keys.", inputSchema: { type: "object", properties: {} } },
@@ -18,7 +18,9 @@ const FIELD = { stage:"Stage", ownerId:"Owner", workstreamId:"Workstream", due:"
 function uid(p) { return p + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
 function safeEq(a, b) { if (!a || !b || a.length !== b.length) return false; let d = 0; for (let i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i); return d === 0; }
 async function api(env, path, body) {
-  const r = await fetch(env.APP_URL.replace(/\/$/, "") + path, { method: body ? "POST" : "GET", headers: { "X-Key": env.APP_KEY, "Content-Type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
+  // Prefer the service binding APP (Workers cannot fetch each other by workers.dev URL: Cloudflare error 1042).
+  const f = env.APP && env.APP.fetch ? env.APP.fetch.bind(env.APP) : fetch;
+  const r = await f(env.APP_URL.replace(/\/$/, "") + path, { method: body ? "POST" : "GET", headers: { "X-Key": env.APP_KEY, "Content-Type": "application/json" }, body: body ? JSON.stringify(body) : undefined });
   const j = await r.json(); if (!r.ok) throw new Error(j.error || r.status); return j;
 }
 function byName(list, name) { if (!name) return null; const n = name.toLowerCase(); return list.find(x => x.name.toLowerCase() === n) || list.find(x => x.name.toLowerCase().startsWith(n)) || null; }
@@ -38,7 +40,7 @@ async function run(env, name, args) {
     if (args.blocked) L = L.filter(a => a.blocked);
     if (args.text) { const t = args.text.toLowerCase(); L = L.filter(a => (a.title + " " + a.notes).toLowerCase().includes(t)); }
     return L.map(a => brief(S, a)); }
-  if (name === "wb_get_action") { const { a } = find(S, args.key); return Object.assign(brief(S, a), { notes: a.notes, source: a.src, checklist: S.checklist_items.filter(c => c.actionId === a.id).map(c => ({ text: c.text, done: c.done })), log: S.updates.filter(u => u.actionId === a.id).sort((x, y) => x.at.localeCompare(y.at)).map(u => ({ at: u.at, who: (S.people.find(p => p.id === u.who) || {}).name || "", text: u.text })) }); }
+  if (name === "wb_get_action") { const { a } = find(S, args.key); return Object.assign(brief(S, a), { notes: a.notes, source: a.src, checklist: S.checklist_items.filter(c => c.actionId === a.id).map(c => ({ text: c.text, done: c.done })), log: (function(){ const gone = new Set(S.updates.filter(u => u.kind === "retract").map(u => u.text)); return S.updates.filter(u => u.actionId === a.id && u.kind !== "retract" && !gone.has(u.id)).sort((x, y) => x.at.localeCompare(y.at)).map(u => ({ at: u.at, who: (S.people.find(p => p.id === u.who) || {}).name || "", text: u.text })); })() }); }
   if (name === "wb_add_action") { const p = proj(S, args.project); const stage = args.stage && STAGES.includes(args.stage) ? args.stage : "Idea";
     const o = byName(S.people, args.owner), w = byName(S.workstreams.filter(w => w.projectId === p.id), args.workstream);
     if (args.owner && !o) throw new Error("no person named " + args.owner + "; people are " + S.people.map(x => x.name).join(", "));
@@ -62,7 +64,7 @@ async function run(env, name, args) {
   if (name === "wb_review") { const p = proj(S, args.project); const L = S.actions.filter(a => a.projectId === p.id && a.stage !== "Done"); const since = args.since || new Date(Date.now() - 7 * 864e5).toISOString().slice(0, 10);
     return { overdue: L.filter(a => a.due && a.due < today()).map(a => brief(S, a)), blocked: L.filter(a => a.blocked).map(a => brief(S, a)),
       noOwner: L.filter(a => !a.ownerId && ["Plan", "Do next", "Doing"].includes(a.stage)).map(a => brief(S, a)),
-      changedSince: L.filter(a => S.updates.some(u => u.actionId === a.id && u.at.slice(0, 10) >= since && u.kind !== "import")).map(a => brief(S, a)) }; }
+      changedSince: L.filter(a => S.updates.some(u => u.actionId === a.id && u.at.slice(0, 10) >= since && u.kind !== "import" && u.kind !== "retract")).map(a => brief(S, a)) }; }
   throw new Error("unknown tool " + name);
 }
 function rpc(id, result, error) { return new Response(JSON.stringify(error ? { jsonrpc: "2.0", id, error } : { jsonrpc: "2.0", id, result }), { headers: { "Content-Type": "application/json" } }); }
