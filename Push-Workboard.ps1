@@ -28,7 +28,7 @@ $Clone   = Join-Path $env:USERPROFILE 'workboard-repo'
 $Stage   = Join-Path $env:USERPROFILE 'OneDrive - Revere Plastics Systems LLC\_Claude\Tools\Workboard'
 $ClaudeDir = Join-Path $env:USERPROFILE 'OneDrive - Revere Plastics Systems LLC\_Claude'
 $Folders = @('connector','docs','migrations','scripts','site','tests','worker')
-$RootFiles = @('START-HERE.md','HANDOFF.md','config.json','.gitignore','Build.cmd','Serve-Local.cmd','Test.cmd','Seed-Live.cmd','Backup.cmd','Push-Workboard.cmd','Push-Workboard.ps1','Restore.cmd')
+$RootFiles = @('START-HERE.md','HANDOFF.md','config.json','.gitignore','Build.cmd','Serve-Local.cmd','Test.cmd','Seed-Live.cmd','Backup.cmd','Push-Workboard.cmd','Push-Workboard.ps1','Restore.cmd','wrangler.toml')
 
 function Say([string]$m, [string]$c='Gray'){ Write-Host $m -ForegroundColor $c }
 function Die([string]$m){ Say ''; Say "STOPPED: $m" 'Red'; Say ''; exit 1 }
@@ -273,5 +273,5 @@ Say ''
 Say ("Pushed " + $sha + " to " + $Branch) 'Green'
 Say 'https://github.com/gregcabe/workboard/commits/main'
 Say ''
-Say 'This is version control only. The Workers are pasted by hand; see START-HERE.md.'
+Say 'Cloudflare deploys both Workers from this push. Give it a minute, then check the version in the page header.'
 Say ''

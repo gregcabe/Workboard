@@ -1,0 +1,6 @@
+# Worker "workboard": the page + API. Deployed by Cloudflare's GitHub integration on every push to main.
+# Secrets (APP_KEY, TURSO_URL, TURSO_TOKEN) live in the dashboard, never here.
+name = "workboard"
+main = "worker/dist/worker.js"
+compatibility_date = "2026-09-01"
+workers_dev = true

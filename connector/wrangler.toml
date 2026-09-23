@@ -1,0 +1,10 @@
+# Worker "workboard-mcp": the MCP connector. Deployed by Cloudflare's GitHub integration on every push to main,
+# with root directory "connector" set on the Worker. Secrets (MCP_KEY, APP_URL, APP_KEY) live in the dashboard.
+name = "workboard-mcp"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+[[services]]
+binding = "APP"
+service = "workboard"

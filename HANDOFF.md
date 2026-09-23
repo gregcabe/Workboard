@@ -10,7 +10,7 @@ a bundle (work done together, e.g. one downtime window), a checklist, source tag
 Built 22 Sep 2026 from a brainstorm prototype; the Excel-era WCC pattern reused deliberately.
 
 ## Constraints that shaped it
-- Same stack as WCC: Cloudflare Worker + Turso + private GitHub repo + MCP connector. Greg pastes Workers by hand; Claude never assumes a stage is a deploy.
+- Same stack as WCC: Cloudflare Worker + Turso + private GitHub repo + MCP connector. Since 23 Sep both Workers deploy from GitHub on push (wrangler.toml at the root and in connector/); before that they were pasted by hand. A push is the deploy; a paste is no longer needed. Claude still never assumes a stage is deployed until the version in the page header says so.
 - Browsers hold only the app key (localStorage `workboard.local`). Only the Worker holds the Turso token. That is WCC open item 1 done from day one.
 - No hard deletes anywhere: `deleted=1` on rows, and the connector has no delete tool. Updates are append-only.
 - Every row has `version`; the API refuses a stale write with 409 and the page reloads.

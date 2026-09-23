@@ -39,8 +39,14 @@ If the top right says the server can't be reached, keep working; it retries.
 
 ## Updating the code
 
-Edit `site/` or `worker/`, `Build.cmd`, `Test.cmd`, then paste `worker/dist/worker.js` into the Worker again and push the repo.
-The connector changes rarely; paste `connector/worker.js` when it does.
+Edit `site/` or `worker/`, `Build.cmd`, `Test.cmd`, `Push-Workboard.cmd`. The push is the deploy: both Workers are
+connected to the GitHub repo and Cloudflare redeploys them from `wrangler.toml` (page) and `connector/wrangler.toml`
+(connector) on every push to main. Check the version number in the page header after a minute. Secrets stay in the dashboard.
+
+### One-time: connect the Workers to GitHub (done once, 23 Sep 2026)
+For `workboard`: Worker, Settings, Build, Connect to Git, choose gregcabe/Workboard, branch main, root directory `/`,
+build command empty, deploy command `npx wrangler deploy`. For `workboard-mcp`: same, but root directory `connector`.
+The Cloudflare GitHub app needs access to the Workboard repository the first time.
 
 ## Read next
 

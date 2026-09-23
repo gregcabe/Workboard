@@ -10,4 +10,6 @@ def mod(p):  # strip ESM import/export so the three modules concatenate into one
     s=rd(p); s=re.sub(r'^import .*?;\n','',s,flags=re.M); s=re.sub(r'^export default ','const WORKER = ',s,flags=re.M); s=re.sub(r'^export ','',s,flags=re.M); return s
 w="// Workboard Worker, built by scripts/build.py. Do not edit here; edit worker/*.js and rebuild.\n"+mod("worker/tables.js")+"\n"+mod("worker/turso.js")+"\n"+mod("worker/index.js").replace("__PAGE__",json.dumps(page))+"\nexport default WORKER;\n"
 wr("worker/dist/worker.js",w)
-print("site/index.html",len(page),"bytes; worker/dist/worker.js",len(w),"bytes; page sha256",hashlib.sha256(page.encode()).hexdigest()[:12])
+import re as _re
+ver=_re.search(r'var VERSION="([^"]+)"',rd("site/app.js")).group(1)
+print("version",ver,"site/index.html",len(page),"bytes; worker/dist/worker.js",len(w),"bytes; page sha256",hashlib.sha256(page.encode()).hexdigest()[:12])

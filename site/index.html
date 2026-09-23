@@ -260,8 +260,10 @@ body.isdragging{cursor:grabbing}
 .ppage .plist{columns:3;column-gap:18px;font-size:10.5px}.ppage .plist span{display:block;break-inside:avoid;padding:2px 0;border-bottom:1px solid #ECEFF2}.ppage .plist b{color:#56636E;margin-right:6px;font-weight:600}
 @media print{.ppage.flyover .fgrid{page-break-inside:avoid}}
 .ppage,.ppage *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.ver{font-size:.7rem;font-weight:600;color:var(--barmuted);margin-left:8px;vertical-align:middle}
 </style></head><body><div id="root"></div><script>(function(){
 "use strict";
+var VERSION="1.2.1";
 var LKEY="workboard.local";
 var STAGES=["Idea","Parked","Plan","Do next","Doing","Done"];
 var PRI={"H|L":"do","H|M":"do","M|L":"do","H|H":"plan","M|M":"plan","L|L":"fill","M|H":"park","L|M":"park","L|H":"park"};
@@ -355,7 +357,7 @@ var statusEl=h("span",{class:"savestate"});
 var projSel=h("select",{class:"proj","aria-label":"Project",onchange:function(e){if(e.target.value==="_new"){newProject();return;}L.cur=e.target.value;ui.ws="";ui.owner="";saveL();render();}});
 var meSel=h("select",{"aria-label":"You are",onchange:function(e){L.me=e.target.value;saveL();render();}});
 var search=h("input",{type:"search",placeholder:"Search actions","aria-label":"Search actions",oninput:function(){ui.q=search.value.toLowerCase();renderMain();}});
-var topBar=h("div",{class:"top"},h("div",{class:"brand"},"Workboard"),h("label",null,"Project",projSel),h("span",{class:"grow"}),search,h("label",null,"You are",meSel),statusEl,
+var topBar=h("div",{class:"top"},h("div",{class:"brand"},"Workboard",h("span",{class:"ver",title:"Build version"},"v"+VERSION)),h("label",null,"Project",projSel),h("span",{class:"grow"}),search,h("label",null,"You are",meSel),statusEl,
 h("button",{class:"btn primary",type:"button",onclick:function(){var a=newAction("");commit();openDrawer(a.id,false,true);}},"Add an idea"),h("button",{class:"btn",type:"button",onclick:openPrint},"Print"),h("button",{class:"btn help",type:"button","aria-label":"How to use Workboard",title:"How to use Workboard",onclick:openHelp},"?"));
 var VIEWS=[["board","Board"],["list","List"],["matrix","Matrix"],["buckets","Buckets"],["timeline","Timeline"],["bundles","Bundles"],["mine","My actions"],["review","Weekly review"],["setup","Setup"]];
 var tabs=h("div",{class:"tabs",role:"group","aria-label":"View"},VIEWS.map(function(v){return h("button",{type:"button","data-v":v[0],onclick:function(){ui.view=v[0];L.view=v[0];saveL();render();}},v[1]);}));
@@ -581,7 +583,7 @@ function openPrint(){closeDrawer();var opts=L.print||{group:"owner",ideas:false,
     return [h("h3",null,g[1]+" ("+its.length+")"),tbl(["#","Action",opts.group==="owner"?"Workstream":"Owner","Stage","Due","Flags","Latest update"],its.map(function(a){return row(a,[key(a),a.title,opts.group==="owner"?wsn(a):owner(a),a.stage,fmtDate(a.due),flags(a),lastNote(a)])}))];}),
    bundles().length?[h("h2",null,"Bundles"),bundles().map(function(b){var ms=pa.filter(function(a){return a.bundleId===b.id});return [h("h3",null,b.name+(b.date?", "+fmtDate(b.date):", no date yet")+" ("+ms.length+")"),b.notes?h("p",{class:"pm"},b.notes):null,tbl(["#","Action","Owner","Stage"],ms.map(function(a){return row(a,[key(a),a.title,owner(a),a.stage])}))];})]:null,
    h("h2",null,"Changed in the last 7 days ("+changed.length+")"),changed.length?tbl(["#","Action","Owner","Stage","Latest update"],changed.map(function(a){return row(a,[key(a),a.title,owner(a),a.stage,lastNote(a)])})):h("p",{class:"pm"},"No changes logged this week."),
-   h("div",{class:"pf"},"Workboard, "+proj().name+". Printed "+fmtDate(today)+".")];}
+   h("div",{class:"pf"},"Workboard v"+VERSION+", "+proj().name+". Printed "+fmtDate(today)+".")];}
  function mini(a,showOwner){var o=pname(a.ownerId);return h("div",{class:"mc s-"+sid(a.stage)+(a.blocked?" blk":"")+(late(a)?" late":"")},h("div",{class:"mk"},key(a),showOwner&&o?h("span",{class:"mo"},initials(o)):null,a.due?h("span",{class:"md"},fmtDate(a.due)):null),h("div",{class:"mt"},a.title));}
  function flyover(){var pa=projActs(),today=isoDay(0);var live=pa.filter(function(a){return ["Plan","Do next","Doing"].indexOf(a.stage)>=0});
   var doneRecent=pa.filter(function(a){return a.stage==="Done"&&a.updatedAt.slice(0,10)>=isoDay(-14)});var parked=pa.filter(function(a){return a.stage==="Parked"}),ideas=pa.filter(function(a){return a.stage==="Idea"});
@@ -597,7 +599,7 @@ function openPrint(){closeDrawer();var opts=L.print||{group:"owner",ideas:false,
    h("h2",null,"Where things stand"),byStage,
    parked.length?[h("h2",null,"Parked ("+parked.length+")"),list(parked)]:null,
    opts.ideas&&ideas.length?[h("h2",null,"Ideas not yet taken up ("+ideas.length+")"),list(ideas)]:null,
-   h("div",{class:"pf"},"Workboard, "+proj().name+". Printed "+fmtDate(today)+".")];}
+   h("div",{class:"pf"},"Workboard v"+VERSION+", "+proj().name+". Printed "+fmtDate(today)+".")];}
  var page=h("div",{class:"ppage"});function re(){page.className="ppage "+opts.mode;setKids(page,opts.mode==="flyover"?flyover():build());}re();
  var bar=h("div",{class:"pbar"},h("span",{class:"tabs"},[["report","Report"],["flyover","Flyover"]].map(function(m){return h("button",{type:"button","aria-pressed":opts.mode===m[0],onclick:function(){opts.mode=m[0];saveL();re();bar.querySelectorAll(".tabs button").forEach(function(b){b.setAttribute("aria-pressed",b.textContent.toLowerCase()===opts.mode)});}},m[1])})),h("label",null,"Group by ",sel([["owner","Owner"],["ws","Workstream"]],opts.group,function(v){opts.group=v;saveL();re();},"Group by")),
   h("label",null,h("input",{type:"checkbox",checked:opts.ideas,onchange:function(e){opts.ideas=e.target.checked;saveL();re();}})," Include ideas and parked"),

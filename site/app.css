@@ -258,3 +258,4 @@ body.isdragging{cursor:grabbing}
 .ppage .plist{columns:3;column-gap:18px;font-size:10.5px}.ppage .plist span{display:block;break-inside:avoid;padding:2px 0;border-bottom:1px solid #ECEFF2}.ppage .plist b{color:#56636E;margin-right:6px;font-weight:600}
 @media print{.ppage.flyover .fgrid{page-break-inside:avoid}}
 .ppage,.ppage *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.ver{font-size:.7rem;font-weight:600;color:var(--barmuted);margin-left:8px;vertical-align:middle}
