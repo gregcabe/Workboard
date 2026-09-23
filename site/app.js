@@ -94,7 +94,7 @@ var projSel=h("select",{class:"proj","aria-label":"Project",onchange:function(e)
 var meSel=h("select",{"aria-label":"You are",onchange:function(e){L.me=e.target.value;saveL();render();}});
 var search=h("input",{type:"search",placeholder:"Search actions","aria-label":"Search actions",oninput:function(){ui.q=search.value.toLowerCase();renderMain();}});
 var topBar=h("div",{class:"top"},h("div",{class:"brand"},"Workboard"),h("label",null,"Project",projSel),h("span",{class:"grow"}),search,h("label",null,"You are",meSel),statusEl,
-h("button",{class:"btn primary",type:"button",onclick:function(){var a=newAction("");commit();openDrawer(a.id,false,true);}},"Add an idea"),h("button",{class:"btn help",type:"button","aria-label":"How to use Workboard",title:"How to use Workboard",onclick:openHelp},"?"));
+h("button",{class:"btn primary",type:"button",onclick:function(){var a=newAction("");commit();openDrawer(a.id,false,true);}},"Add an idea"),h("button",{class:"btn",type:"button",onclick:openPrint},"Print"),h("button",{class:"btn help",type:"button","aria-label":"How to use Workboard",title:"How to use Workboard",onclick:openHelp},"?"));
 var VIEWS=[["board","Board"],["list","List"],["matrix","Matrix"],["buckets","Buckets"],["timeline","Timeline"],["bundles","Bundles"],["mine","My actions"],["review","Weekly review"],["setup","Setup"]];
 var tabs=h("div",{class:"tabs",role:"group","aria-label":"View"},VIEWS.map(function(v){return h("button",{type:"button","data-v":v[0],onclick:function(){ui.view=v[0];L.view=v[0];saveL();render();}},v[1]);}));
 var fWs=h("select",{"aria-label":"Workstream",onchange:function(e){ui.ws=e.target.value;renderMain();}});
@@ -298,6 +298,50 @@ function setupView(){
 function addProject(v){var k=v.replace(/[^A-Za-z]/g,"").slice(0,3).toUpperCase()||"PRJ";var p={id:uid("p"),key:k,name:v,nextNum:1,deleted:0,updatedAt:now(),version:0};S.projects.push(p);L.cur=p.id;saveL();return p;}
 function newProject(){ui.view="setup";render();toast("Add the new project under Projects, then pick it from the list.");}
 
+/* print view */
+function openPrint(){closeDrawer();var opts=L.print||{group:"owner",ideas:false,mode:"report"};L.print=opts;if(!opts.mode)opts.mode="report";
+ var root=h("div",{id:"printroot"});
+ function build(){var pa=projActs(),today=isoDay(0),wk=isoDay(-7);var items=pa.filter(function(a){return a.stage!=="Done"&&(opts.ideas||(a.stage!=="Idea"&&a.stage!=="Parked"))});
+  var counts=STAGES.map(function(s){return [s,pa.filter(function(a){return a.stage===s}).length]});
+  var over=pa.filter(late),blk=pa.filter(function(a){return a.blocked&&a.stage!=="Done"}),noown=pa.filter(function(a){return !a.ownerId&&["Plan","Do next","Doing"].indexOf(a.stage)>=0});
+  var changed=pa.filter(function(a){return S.updates.some(function(u){return u.actionId===a.id&&u.at.slice(0,10)>=wk&&u.kind!=="import"&&u.kind!=="retract"})});
+  var f=opts.group==="owner"?"ownerId":"workstreamId";var groups=opts.group==="owner"?peopleList().map(function(p){return [p.id,p.name]}).concat([["","No owner"]]):wsList().map(function(w){return [w.id,w.name]}).concat([["","No workstream"]]);
+  function row(a,cols){return h("tr",{class:late(a)?"late":""},cols.map(function(c,i){return h("td",{class:/^(\w{3} \d{1,2}|)$/.test(String(c))&&i>1?"dt":""},c)}));}
+  function flags(a){var t=[];if(a.blocked)t.push("Blocked"+(a.blockedReason?": "+a.blockedReason:""));var b=bundle(a.bundleId);if(b)t.push("Bundle: "+b.name+(b.date?" "+fmtDate(b.date):""));var cl=chk(a);if(cl.length)t.push(cl.filter(function(c){return c.done}).length+"/"+cl.length+" steps");return t.join("; ");}
+  function lastNote(a){var u=S.updates.filter(function(u){return u.actionId===a.id&&u.kind==="note"}).sort(function(x,y){return y.at.localeCompare(x.at)})[0];return u?fmtDate(u.at.slice(0,10))+": "+u.text:"";}
+  var owner=function(a){return pname(a.ownerId)||"No owner"},wsn=function(a){return (ws(a.workstreamId)||{}).name||""};
+  var tbl=function(head,rows){return h("table",null,h("thead",null,h("tr",null,head.map(function(x){return h("th",null,x)}))),h("tbody",null,rows));};
+  return [h("div",{class:"ph"},h("h1",null,proj().name+": action review"),h("div",{class:"pm"},"Printed "+fmtDate(today)+", "+new Date().toLocaleTimeString([], {hour:"numeric",minute:"2-digit"})+". "+pa.length+" actions: "+counts.map(function(c){return c[1]+" "+c[0]}).join(", ")+". "+over.length+" overdue, "+blk.length+" blocked, "+noown.length+" in play without an owner.")),
+   h("h2",null,"Needs attention"),
+   (over.length||blk.length||noown.length)?tbl(["#","Action","Owner","Why","Due"],over.map(function(a){return row(a,[key(a),a.title,owner(a),"Overdue",fmtDate(a.due)])}).concat(blk.filter(function(a){return !late(a)}).map(function(a){return row(a,[key(a),a.title,owner(a),"Blocked"+(a.blockedReason?": "+a.blockedReason:"")+(a.blockedSince?", "+daysSince(a.blockedSince)+" days":""),fmtDate(a.due)])})).concat(noown.filter(function(a){return !late(a)&&!a.blocked}).map(function(a){return row(a,[key(a),a.title,"",a.stage+", no owner",fmtDate(a.due)])}))):h("p",{class:"pm"},"Nothing overdue, blocked or unowned."),
+   h("h2",null,"Open actions by "+(opts.group==="owner"?"owner":"workstream")),
+   groups.map(function(g){var its=items.filter(function(a){return (a[f]||"")===g[0]}).sort(function(x,y){return STAGES.indexOf(y.stage)-STAGES.indexOf(x.stage)||(x.due||"9999").localeCompare(y.due||"9999")||x.num-y.num});if(!its.length)return null;
+    return [h("h3",null,g[1]+" ("+its.length+")"),tbl(["#","Action",opts.group==="owner"?"Workstream":"Owner","Stage","Due","Flags","Latest update"],its.map(function(a){return row(a,[key(a),a.title,opts.group==="owner"?wsn(a):owner(a),a.stage,fmtDate(a.due),flags(a),lastNote(a)])}))];}),
+   bundles().length?[h("h2",null,"Bundles"),bundles().map(function(b){var ms=pa.filter(function(a){return a.bundleId===b.id});return [h("h3",null,b.name+(b.date?", "+fmtDate(b.date):", no date yet")+" ("+ms.length+")"),b.notes?h("p",{class:"pm"},b.notes):null,tbl(["#","Action","Owner","Stage"],ms.map(function(a){return row(a,[key(a),a.title,owner(a),a.stage])}))];})]:null,
+   h("h2",null,"Changed in the last 7 days ("+changed.length+")"),changed.length?tbl(["#","Action","Owner","Stage","Latest update"],changed.map(function(a){return row(a,[key(a),a.title,owner(a),a.stage,lastNote(a)])})):h("p",{class:"pm"},"No changes logged this week."),
+   h("div",{class:"pf"},"Workboard, "+proj().name+". Printed "+fmtDate(today)+".")];}
+ function mini(a,showOwner){var o=pname(a.ownerId);return h("div",{class:"mc s-"+sid(a.stage)+(a.blocked?" blk":"")+(late(a)?" late":"")},h("div",{class:"mk"},key(a),showOwner&&o?h("span",{class:"mo"},initials(o)):null,a.due?h("span",{class:"md"},fmtDate(a.due)):null),h("div",{class:"mt"},a.title));}
+ function flyover(){var pa=projActs(),today=isoDay(0);var live=pa.filter(function(a){return ["Plan","Do next","Doing"].indexOf(a.stage)>=0});
+  var doneRecent=pa.filter(function(a){return a.stage==="Done"&&a.updatedAt.slice(0,10)>=isoDay(-14)});var parked=pa.filter(function(a){return a.stage==="Parked"}),ideas=pa.filter(function(a){return a.stage==="Idea"});
+  var legend=h("div",{class:"leg"},["Plan","Do next","Doing","Done"].map(function(s){return h("span",null,h("i",{class:"s-"+sid(s)}),s)}),h("span",null,h("i",{class:"blkkey"}),"blocked"),h("span",null,h("i",{class:"latekey"}),"overdue"));
+  var people=peopleList().filter(function(p){return live.some(function(a){return a.ownerId===p.id})});var unowned=live.filter(function(a){return !a.ownerId});
+  var byOwner=h("div",{class:"fgrid",style:"grid-template-columns:repeat("+(people.length+(unowned.length?1:0))+",minmax(0,1fr))"},people.map(function(p){var its=live.filter(function(a){return a.ownerId===p.id}).sort(function(x,y){return STAGES.indexOf(y.stage)-STAGES.indexOf(x.stage)||(x.due||"9999").localeCompare(y.due||"9999")});
+   return h("div",{class:"fcol"},h("div",{class:"fh"},p.name,h("span",null,its.length)),its.map(function(a){return mini(a,false)}));}),unowned.length?h("div",{class:"fcol"},h("div",{class:"fh warn"},"No owner",h("span",null,unowned.length)),unowned.map(function(a){return mini(a,false)})):null);
+  var stages=[["Plan",pa.filter(function(a){return a.stage==="Plan"})],["Do next",pa.filter(function(a){return a.stage==="Do next"})],["Doing",pa.filter(function(a){return a.stage==="Doing"})],["Done, last 14 days",doneRecent]];
+  var byStage=h("div",{class:"fgrid",style:"grid-template-columns:repeat(4,minmax(0,1fr))"},stages.map(function(s){return h("div",{class:"fcol"},h("div",{class:"fh"},s[0],h("span",null,s[1].length)),s[1].sort(function(x,y){return (x.due||"9999").localeCompare(y.due||"9999")||x.num-y.num}).map(function(a){return mini(a,true)}));}));
+  var list=function(arr){return h("div",{class:"plist"},arr.sort(function(x,y){return x.num-y.num}).map(function(a){return h("span",null,h("b",null,key(a)),a.title)}))};
+  return [h("div",{class:"ph"},h("h1",null,proj().name+": flyover"),h("div",{class:"pm"},"Printed "+fmtDate(today)+". "+live.length+" actions in play, "+parked.length+" parked, "+ideas.length+" ideas, "+pa.filter(function(a){return a.stage==="Done"}).length+" done."),legend),
+   h("h2",null,"Who has what (Plan, Do next, Doing)"),byOwner,
+   h("h2",null,"Where things stand"),byStage,
+   parked.length?[h("h2",null,"Parked ("+parked.length+")"),list(parked)]:null,
+   opts.ideas&&ideas.length?[h("h2",null,"Ideas not yet taken up ("+ideas.length+")"),list(ideas)]:null,
+   h("div",{class:"pf"},"Workboard, "+proj().name+". Printed "+fmtDate(today)+".")];}
+ var page=h("div",{class:"ppage"});function re(){page.className="ppage "+opts.mode;setKids(page,opts.mode==="flyover"?flyover():build());}re();
+ var bar=h("div",{class:"pbar"},h("span",{class:"tabs"},[["report","Report"],["flyover","Flyover"]].map(function(m){return h("button",{type:"button","aria-pressed":opts.mode===m[0],onclick:function(){opts.mode=m[0];saveL();re();bar.querySelectorAll(".tabs button").forEach(function(b){b.setAttribute("aria-pressed",b.textContent.toLowerCase()===opts.mode)});}},m[1])})),h("label",null,"Group by ",sel([["owner","Owner"],["ws","Workstream"]],opts.group,function(v){opts.group=v;saveL();re();},"Group by")),
+  h("label",null,h("input",{type:"checkbox",checked:opts.ideas,onchange:function(e){opts.ideas=e.target.checked;saveL();re();}})," Include ideas and parked"),
+  h("span",{class:"grow"}),h("span",{class:"pm"},"Pick Letter or Tabloid (11 x 17) and landscape in the print dialog. Save as PDF to share."),
+  h("button",{type:"button",class:"btn primary",onclick:function(){window.print();}},"Print / Save PDF"),h("button",{type:"button",class:"btn",onclick:function(){root.remove();document.body.classList.remove("printing");}},"Close"));
+ root.append(bar,page);document.body.append(root);document.body.classList.add("printing");}
 /* help */
 function openHelp(){closeDrawer();var P=function(t){return h("p",null,t)};var H=function(t){return h("h3",null,t)};
  var body=h("div",{class:"db help"},

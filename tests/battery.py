@@ -31,6 +31,8 @@ with sync_playwright() as p:
     pg.locator(".keybox input").fill(KEY); pg.keyboard.press("Enter"); pg.wait_for_timeout(600)
     ok("board 6 cols", pg.locator(".col").count()==6)
     ok("50 cards", pg.locator(".card").count()==50)
+    import re as _re
+    over0=int(_re.search(r"(\d+) overdue",pg.locator(".attn").inner_text()).group(1))
     # drag first idea card to Doing
     doing=pg.locator(".colb").nth(4); before=doing.locator(".card").count()
     drag(pg,pg.locator(".colb").nth(0).locator(".card").first,doing)
@@ -48,9 +50,9 @@ with sync_playwright() as p:
     ok("log has update+owner change", "Talked to Rick" in log and "Owner: none → Rick Uher" in log)
     pg.screenshot(path=os.path.join(R,"tests/shots/")+"drawer.png")
     pg.keyboard.press("Escape")
-    ok("overdue count", "1 overdue" in pg.locator(".attn").inner_text())
+    ok("overdue count", "%d overdue"%(over0+1) in pg.locator(".attn").inner_text())
     pg.wait_for_timeout(700); pg.reload(); pg.wait_for_timeout(700)
-    ok("persist after reload", "1 overdue" in pg.locator(".attn").inner_text())
+    ok("persist after reload", "%d overdue"%(over0+1) in pg.locator(".attn").inner_text())
     for v in ["list","matrix","buckets","mine","review","setup"]:
         pg.locator('.tabs button[data-v="%s"]'%v).click(); pg.wait_for_timeout(100); pg.screenshot(path=os.path.join(R,"tests/shots/")+v+".png",full_page=False)
         ok("view "+v, pg.locator("main").inner_text().strip()!="")
@@ -142,6 +144,13 @@ with sync_playwright() as p:
     pg.locator('.tabs button[data-v="board"]').click(); pg.wait_for_timeout(450); pg.locator(".colb").nth(3).locator(".card").first.click()
     pg.locator(".drawer .blkh input").uncheck(); ok("unblocked", "Blocked:" not in pg.locator(".colb").nth(3).inner_text())
     pg.keyboard.press("Escape")
+    # print view
+    pg.locator('.tabs button[data-v="board"]').click(); pg.wait_for_timeout(450)
+    pg.locator("text=Print").first.click(); pg.wait_for_timeout(200)
+    ok("print view has sections", pg.locator(".ppage h2").count()>=3 and pg.locator(".ppage table").count()>=2)
+    pg.locator(".pbar .tabs button").nth(1).click(); pg.wait_for_timeout(100)
+    ok("flyover has cards", pg.locator(".ppage .mc").count()>=5)
+    pg.locator("#printroot .btn").last.click(); ok("print view closes", pg.locator("#printroot").count()==0)
     # help panel and retract
     pg.locator('.tabs button[data-v="board"]').click(); pg.wait_for_timeout(450)
     pg.locator(".btn.help").click(); ok("help opens", "How to use Workboard" in pg.locator(".drawer").inner_text()); pg.keyboard.press("Escape")
